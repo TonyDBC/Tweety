@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\TweetController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +21,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('home',function() {
-    return view('home');
-});
+Route::post('/tweets', [TweetController::class,'store']);
+
+Route::get('/home',[TweetController::class,'index'])->name('home');
