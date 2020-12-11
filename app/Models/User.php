@@ -59,6 +59,7 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    // This fetches the avatar of the email
     public function getAvatarAttribute(){
         return "https://i.pravatar.cc/40?u=" .$this->email;
     }

@@ -22,6 +22,7 @@ class TweetController extends Controller
     }
 
     public function store(){
+        // The validated information will be stored in the attributes variable
         $attributes = request()->validate(['body' => 'required | max:255']);
         Tweet::create([
             'user_id' => auth()->id(),
