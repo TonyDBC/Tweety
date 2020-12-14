@@ -12,7 +12,7 @@ class TweetController extends Controller
     }
 
     public function index(){
-        return view('home',[
+        return view('tweets.index',[
         // This command fetches all the tweets
         //    'tweets' => Tweet::all()
 

@@ -61,7 +61,7 @@ class User extends Authenticatable
 
     // This fetches the avatar of the email
     public function getAvatarAttribute(){
-        return "https://i.pravatar.cc/40?u=" .$this->email;
+        return "https://i.pravatar.cc/200?u=" .$this->email;
     }
 
     public function timeline(){
@@ -98,5 +98,9 @@ class User extends Authenticatable
     public function follows(){
         // Check the 'follows' database. Then $foreignPivotKey and $relatedPivotKey
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id');
+    }
+
+    public function getRouteKeyName(){
+        return 'name';
     }
 }
