@@ -21,6 +21,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::post('/tweets', [TweetController::class,'store']);
+Route::middleware('auth')->group(function(){
+    Route::get('/home',[TweetController::class,'index'])->name('home');
+    Route::post('/tweets', [TweetController::class,'store']);
+});
 
-Route::get('/home',[TweetController::class,'index'])->name('home');
+
+
+

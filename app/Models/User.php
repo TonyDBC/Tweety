@@ -65,7 +65,28 @@ class User extends Authenticatable
     }
 
     public function timeline(){
-        return Tweet::where('user_id', $this->id)->latest()->get();
+        // This only gets the timeline of the current user but not anyone else
+        // Move this to another function called tweets
+        // return Tweet::where('user_id', $this->id)->latest()->get();
+
+        // Get all ids the current user follows
+        $friends = $this->follows()->pluck('id');
+
+        // Method 1:
+        // Add the current user's id into the array
+        // $ids -> push($this->id);
+        // Finally get all the tweets which belong to the user_id in the array and sort in time order
+        // return Tweet::whereIn('user_id', $ids)->latest()->get();
+
+        //Method 2:
+        // User orWhere function
+        return Tweet::whereIn('user_id',$friends)
+            ->orWhere('user_id', $this->id)
+            ->latest()->get();
+    }
+
+    public function tweets(){
+        return $this->hasMany(Tweet::class);
     }
 
     // Save this follow relationship
