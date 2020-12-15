@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Followable;
 
 class User extends Authenticatable
 {
@@ -17,6 +18,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use Followable;
 
     /**
      * The attributes that are mass assignable.
@@ -86,21 +88,23 @@ class User extends Authenticatable
     }
 
     public function tweets(){
-        return $this->hasMany(Tweet::class);
+        return $this->hasMany(Tweet::class)->latest();
     }
 
-    // Save this follow relationship
-    public function follow(User $user){
-        return $this->follows()->save($user);
+    // In Laravel 6 and below, need this to fetch the user's name instead of id
+    // public function getRouteKeyName(){
+    //    return 'name';
+    // }
+
+    public function toggleFollow(User $user){
+        if ($this->following($user)){
+            return $this->unfollow($user);
+        }
+        
+        return $this->follow($user);
     }
 
-    // Check who a user follows
-    public function follows(){
-        // Check the 'follows' database. Then $foreignPivotKey and $relatedPivotKey
-        return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id');
-    }
-
-    public function getRouteKeyName(){
-        return 'name';
+    public function path(){
+        return route('profile', $this->name);
     }
 }
