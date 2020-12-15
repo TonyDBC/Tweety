@@ -1,6 +1,5 @@
-@extends('components.app')
+<x-app>
 
-@section('content')
     <header class="mb-6 relative">
         <img src="/images/default-profile-banner.jpg" alt="Default banner" class="mb-2">
 
@@ -24,4 +23,5 @@
     @include('_timeline', [
         'tweets' => $user -> tweets
     ])
-@endsection
+
+</x-app>
