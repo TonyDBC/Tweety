@@ -20,14 +20,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
+    return view('home');
+})->name('home');
+
+Route::get('/dashboard', function(){
     return view('dashboard');
 })->name('dashboard');
 
 Route::middleware('auth')->group(function(){
+    // The route name is defined with ->name('route_name)
     Route::get('/home',[TweetController::class,'index'])->name('home');
     Route::post('/tweets', [TweetController::class,'store']);
     Route::post('/profiles/{user:name}/follow',[FollowsController::class,'store']);
+    Route::get('/profiles/{user:name}/edit',[ProfilesController::class,'edit'])->middleware('can:edit,user');
 });
 
 // In Laravel 7 and above, can simply add the name attribute after the colon

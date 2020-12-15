@@ -16,7 +16,7 @@ class TweetController extends Controller
         // This command fetches all the tweets
         //    'tweets' => Tweet::all()
 
-            'tweets' => auth()->user()->timeline()
+            'tweets' => current_user()->timeline()
 
         ]);
     }

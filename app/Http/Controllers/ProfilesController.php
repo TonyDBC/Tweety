@@ -17,4 +17,19 @@ class ProfilesController extends Controller
         // The compact() function creates an array from variables and their values.
         return view('profiles.show', compact('user'));
     }
+
+    public function edit(User $user){
+        // This if function provents editing the profiles of other users
+        // if($user->isNot(current_user())){
+        //    abort(404);
+        // }
+        
+        // The shorter way of the if function above is:
+        // abort_if($user->isNot(current_user()),403);
+
+        // Can also use a user policy
+        // $this -> authorize('edit',$user);
+
+        return view('profiles.edit', compact('user'));
+    }
 }

@@ -104,7 +104,11 @@ class User extends Authenticatable
         return $this->follow($user);
     }
 
-    public function path(){
-        return route('profile', $this->name);
+    // If there is no parameter, then it is the same as path() function and fetches the path
+    // If there is some parameter, then it will get the requested as the $append variable
+    public function path($append = ''){
+        $path = route('profile', $this->name);
+
+        return $append ? "{$path}/{$append}" : $path;
     }
 }
