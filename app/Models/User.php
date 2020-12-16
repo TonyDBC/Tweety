@@ -25,11 +25,10 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    
+    // An equivalent way is:
+    // protected $fillable = ['username', 'avatar', 'name', 'email', 'password'];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -62,8 +61,12 @@ class User extends Authenticatable
     ];
 
     // This fetches the avatar of the email
-    public function getAvatarAttribute(){
-        return "https://i.pravatar.cc/200?u=" .$this->email;
+    public function getAvatarAttribute($value){
+        // Getting avatar from this external link
+        // return "https://i.pravatar.cc/200?u=" .$this->email;
+
+        // Getting customised avatar:
+        return asset('storage/'.$value);
     }
 
     public function timeline(){
@@ -107,7 +110,7 @@ class User extends Authenticatable
     // If there is no parameter, then it is the same as path() function and fetches the path
     // If there is some parameter, then it will get the requested as the $append variable
     public function path($append = ''){
-        $path = route('profile', $this->name);
+        $path = route('profile', $this->username);
 
         return $append ? "{$path}/{$append}" : $path;
     }
