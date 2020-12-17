@@ -7,7 +7,8 @@ use App\Models\User;
 
 class ExploreController extends Controller
 {
-    public function index(){
+    // Can either use index() or __invoke() if there is only one function in the controller
+    public function __invoke(){
         return view('explore',[
             'users' => User::paginate(5)
         ]);

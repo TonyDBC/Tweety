@@ -38,7 +38,10 @@ Route::middleware('auth')->group(function(){
     Route::patch('/profiles/{user:username}',[ProfilesController::class,'update'])->middleware('can:edit,user');
 });
 
-Route::get('/explore',[ExploreController::class,'index']);
+// If the controller is invokable, then can simply exclude the function.
+// Otherwise can still add the index() function.
+// Route::get('/explore', [ExploreController::class,'index']);
+Route::get('/explore', ExploreController::class);
 
 // In Laravel 7 and above, can simply add the name attribute after the colon
 Route::get('/profiles/{user:username}', [ProfilesController::class,'show'])->name('profile');

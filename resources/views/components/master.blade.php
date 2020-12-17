@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,4 +32,20 @@
             {{$slot}}
         </div>
     </body>
+
+    <footer>
+        <div class="bg-gray-100 mt-8 flex" style="height: 70px;">
+            <div class="w-1/2 mt-4">
+                <ul class="ml-20 flex">
+                    <li class="mr-6">About us</li>
+                    <li class="mr-6">Contact us</li>
+                    <li class="mr-6">Terms & Conditions</li>
+                    <li class="mr-6">Policies</li>
+                </ul>
+            </div>
+            <div class="mt-4" style="float:right">
+                <p>&copy;Copyright Tweety.</p>
+            </div>
+        </div>
+    </footer>
 </html>

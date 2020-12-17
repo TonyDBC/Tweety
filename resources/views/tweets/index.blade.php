@@ -4,4 +4,5 @@
                     
     @include('_timeline')
 
+    {{$tweets->links()}}
 </x-app>
