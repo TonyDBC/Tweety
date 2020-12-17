@@ -65,9 +65,17 @@ class User extends Authenticatable
         // Getting avatar from this external link
         // return "https://i.pravatar.cc/200?u=" .$this->email;
 
-        // Getting customised avatar:
-        return asset('storage/'.$value);
+        // Getting customised avatar (for more solutions check the screenshot in the google doc):
+        if($value){
+            return asset('storage/'. $value);
+        }
+            return asset('images/default-avatar.jpeg');
     }
+
+    // This is another way to encrypt the password
+    // public function setPasswordAttribute($value){
+    //     return $this->attributes['password'] = bcrypt($value);
+    // }
 
     public function timeline(){
         // This only gets the timeline of the current user but not anyone else
@@ -99,13 +107,6 @@ class User extends Authenticatable
     //    return 'name';
     // }
 
-    public function toggleFollow(User $user){
-        if ($this->following($user)){
-            return $this->unfollow($user);
-        }
-        
-        return $this->follow($user);
-    }
 
     // If there is no parameter, then it is the same as path() function and fetches the path
     // If there is some parameter, then it will get the requested as the $append variable

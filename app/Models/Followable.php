@@ -27,5 +27,14 @@ trait Followable{
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id');
     }
 
-    
+    public function toggleFollow(User $user){
+        // The logic is that if the user is following the other user, then click to unfollow. Otherwise click to follow.
+        // if ($this->following($user)){
+        //     return $this->unfollow($user);
+        // }
+        // return $this->follow($user);
+
+        // The equivalent (neater) way to do the same thing is as follows:
+        return $this->follows()->toggle($user);
+    }
 }
