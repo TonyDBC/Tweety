@@ -19,7 +19,7 @@ class ProfilesController extends Controller
         // The compact() function creates an array from variables and their values.
         return view('profiles.show', [
             'user' => $user,
-            'tweets' => $user->tweets()->paginate(5)
+            'tweets' => $user->tweets()->withLikes()->paginate(5)
         ]);
     }
 

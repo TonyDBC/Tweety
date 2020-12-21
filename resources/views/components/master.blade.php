@@ -48,4 +48,7 @@
             </div>
         </div>
     </footer>
+
+    <!--Adding this makes loading much faster -->
+    <script src="http://unpkg.com/turbolinks"></script>
 </html>

@@ -6,6 +6,10 @@
     </div>
     <div>
         <h5 class="font-bold mb-2"><a href="{{$tweet->user->path()}}">{{$tweet->user->name}}</a></h5>
-        <p class="text-sm">{{$tweet->body}}</p>
+        <p class="text-sm mb-3">{{$tweet->body}}</p>
+
+        @auth
+        <x-like-buttons :tweet='$tweet'></x-like-buttons>
+        @endauth
     </div>
 </div>

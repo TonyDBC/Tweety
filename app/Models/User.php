@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Followable;
+
 
 class User extends Authenticatable
 {
@@ -19,6 +19,8 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use Followable;
+    use Likeable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -95,6 +97,7 @@ class User extends Authenticatable
         // User orWhere function
         return Tweet::whereIn('user_id',$friends)
             ->orWhere('user_id', $this->id)
+            ->withLikes()
             ->latest()->paginate(10);
     }
 
@@ -115,4 +118,5 @@ class User extends Authenticatable
 
         return $append ? "{$path}/{$append}" : $path;
     }
+
 }
